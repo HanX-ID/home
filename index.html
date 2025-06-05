@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HanX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      padding-top: 3rem;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+      position: relative;
+    }
+
+    :root {
+      --bg-dark-start: #0e0e0e;
+      --bg-dark-end: #1a1a1a;
+      --bg-light-start: #f5f7fa;
+      --bg-light-end: #c3cfe2;
+      --text-dark: #eee;
+      --text-light: #222;
+      --accent: #00ffcc;
+    }
+
+    body.dark {
+      --bg: linear-gradient(to bottom right, var(--bg-dark-start), var(--bg-dark-end));
+      --text: var(--text-dark);
+      --button-bg: #1c1c1c;
+      --button-border: #2a2a2a;
+      --button-hover-bg: #292929;
+      --button-hover-shadow: rgba(0,255,204,0.15);
+    }
+    body.light {
+      --bg: linear-gradient(to bottom right, var(--bg-light-start), var(--bg-light-end));
+      --text: var(--text-light);
+      --button-bg: #ffffffdd;
+      --button-border: #ccc;
+      --button-hover-bg: #e0e7f9;
+      --button-hover-shadow: rgba(0,200,255,0.15);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      background: transparent url('https://raw.githubusercontent.com/joshbuchea/space-stars/main/stars.svg') repeat;
+      background-size: 200px 200px;
+      animation: starMove 120s linear infinite;
+      opacity: 0.15;
+      z-index: 0;
+      transition: opacity 0.4s ease;
+    }
+    body.light::before {
+      opacity: 0.05;
+    }
+    @keyframes starMove {
+      from {background-position: 0 0;}
+      to {background-position: 200px 200px;}
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      padding: 0 1rem;
+      animation: fadeUp 0.7s ease;
+      z-index: 1;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-image: url('https://img1.pixhost.to/images/6197/606643306_hanx.jpg');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+      cursor: default;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent);
+    }
+
+    .bio {
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.75;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem;
+      color: var(--text);
+      border-left: 4px solid var(--accent);
+      padding-left: 0.6rem;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      border-radius: 0.8rem;
+      background: var(--button-bg);
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--button-border);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #00ffcc, #0066ff, #00ffcc, #0066ff);
+      background-size: 400% 400%;
+      animation: gradientMove 5s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+      border-radius: 0.8rem;
+    }
+
+    .button:hover::before {
+      opacity: 0.15;
+    }
+
+    .button:hover {
+      background: var(--button-hover-bg);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 4px 10px var(--button-hover-shadow);
+      color: var(--accent);
+      z-index: 1;
+    }
+
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .socials {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .socials a {
+      color: #888;
+      font-size: 1.6rem;
+      transition: all 0.25s ease;
+      transform: scale(1);
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+    }
+
+    .socials a:hover {
+      color: var(--accent);
+      transform: scale(1.3);
+      filter: drop-shadow(0 0 6px var(--accent));
+    }
+
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text);
+      opacity: 0.6;
+    }
+
+
+    .toggle-theme {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--button-bg);
+      border: 1px solid var(--button-border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: background 0.3s ease, color 0.3s ease;
+      z-index: 10;
+    }
+
+    .toggle-theme:hover {
+      background: var(--button-hover-bg);
+      color: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+  </style>
+</head>
+<body class="dark">
+  <button class="toggle-theme" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <div class="profile">
+      <div class="avatar"></div>
+      <div class="profile-info">
+        <div class="name">HanX</div>
+        <div class="bio">hi! my name is han :D</div>
+      </div>
+    </div>
+
+    <div class="title">my projects</div>
+    <a href="https://hanx-id.github.io/portofolio/" class="button"><i class="fas fa-laptop-code"></i>portofolio</a>
+    <a href="https://github.com/HanX-ID?tab=repositories" class="button"><i class="fas fa-book-open"></i>repositories</a>
+    <a href="https://hanx-id.github.io/ai-image/" class="button"><i class="fas fa-robot"></i>ai image</a>
+    <a href="https://hanx-id.github.io/shop/" class="button"><i class="fas fa-store"></i>shop</a>  
+    
+    <div class="title">my sosmed</div>
+    <a href="https://instagram.com/hannz_sigma" class="button"><i class="fab fa-instagram"></i>instagram</a>
+    <a href="https://tiktok.com/@hanzyxkkkk" class="button"><i class="fab fa-tiktok"></i>tiktok</a>
+   <a href="https://github.com/HanX-ID" class="button"><i class="fab fa-github"></i>github</a>
+    <a href="https://t.me/HanX_6666" class="button"><i class="fab fa-telegram"></i>telegram</a>
+    <a href="https://wa.me/6285123894103" class="button"><i class="fab fa-whatsapp"></i>whatsapp</a>
+    <a href="https://whatsapp.com/channel/0029VbApjCsIt5rpYUwk461J" class="button"><i class="fas fa-bullhorn"></i>saluran wa</a>
+
+  <div class="socials">
+      <a href="https://instagram.com/hannz_sigma" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+      <a href="https://tiktok.com/@hanzyxkkkk" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+      <a href="https://github.com/HanX-ID" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+      <a href="https://t.me/HanX_6666" target="_blank" rel="noopener"><i class="fab fa-telegram"></i></a>
+      <a href="https://wa.me/6285123894103" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 - HanX
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.querySelector('.toggle-theme');
+    const body = document.body;
+    const icon = toggleBtn.querySelector('i');
+    
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    body.className = savedTheme;
+    icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+    toggleBtn.addEventListener('click', () => {
+      if(body.classList.contains('dark')) {
+        body.classList.replace('dark', 'light');
+        icon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.replace('light', 'dark');
+        icon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+  </html>
